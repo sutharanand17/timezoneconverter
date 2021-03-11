@@ -1,0 +1,64 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Time Zone Converter converts times instantly as you type. Supports multiple timezone cards. Convert between major world cities, countries and timezones in all directions. Saves the timezones for future references. Save multiple timezones as per the title."
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timezone Converter</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <section class="app" id="app">
+      <h1>Timezone Converter</h1>
+      <div class="flex global-settings">
+        <time-format
+          v-on:updateformat="updateTimeFormat"
+          v-bind:timeformat="timeformat"
+        ></time-format>
+        <span class="vr"></span>
+        <date-format
+          v-on:updateformat="updateDateFormat"
+          v-bind:dateformat="dateformat"
+        ></date-format>
+      </div>
+      <div class="flex times">
+        Local - {{localTime}}&nbsp;&nbsp;&nbsp;&nbsp;UTC - {{utcTime}}
+      </div>
+      <input type="button" value="Add Timezone" v-on:click="addTimezone" />
+      <hr />
+      <div class="flex timezones-wrapper">
+        <div class="flex timezones">
+          <timezone-card
+            v-for="timezone in timezones"
+            v-bind:timeformat="timeformat"
+            v-bind:dateformat="dateformat"
+            v-bind:source="source"
+            v-bind:timezone="timezone"
+            v-on:removetimezone="removeTimezone"
+            v-on:synctimezone="syncTimezone"
+            v-on:syncstorage="syncStorage"
+          ></timezone-card>
+        </div>
+      </div>
+    </section>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://moment.github.io/luxon/global/luxon.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="assets/timezones.js"></script>
+    <!-- production version, optimized for size and speed -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
